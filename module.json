@@ -1,0 +1,30 @@
+{
+  "id": "syrious-small-additions",
+  "title": "Syrious' Small Additions",
+  "description": "A collection of some minor QoL stuff",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "authors": [
+    {
+      "name": "Syrious",
+      "discord": "syrious_",
+      "flags": {
+        "patreon": "SyriousWorkshop",
+        "github": "Syrious",
+        "ko-fi": "syrious"
+      }
+    }
+  ],
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/sidebar.css"
+  ],
+  "url": "https://github.com/Syrious/foundryvtt-small-additions",
+  "manifest": "https://github.com/Syrious/foundryvtt-small-additions/releases/download/latest/module.json",
+  "download": "https://github.com/Syrious/foundryvtt-small-additions/releases/download/latest/module.zip"
+}
