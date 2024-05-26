@@ -2,10 +2,10 @@
   "id": "syrious-small-additions",
   "title": "Syrious' Small Additions",
   "description": "A collection of some minor QoL stuff",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": {
     "minimum": "11",
-    "verified": "11"
+    "verified": "12"
   },
   "authors": [
     {
