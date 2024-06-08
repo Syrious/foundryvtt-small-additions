@@ -12,6 +12,8 @@ This module provides minor QoL additions
 Having a lot of modules sometimes means having a lot of buttons on the left sidebar. For smaller displays that can be a problem and users might not be able to see every button.
 This addition adds a scrolling functionality (without a scrollbar). The sidebar can now be scrolled with the mouse wheel or click and drag.
 
+https://github.com/Syrious/foundryvtt-small-additions/assets/8050391/be2078ae-40b7-493e-888c-6c602c24b6f6
+
 
 ### Support
 If you like to support my work find me on [Patreon](https://www.patreon.com/SyriousWorkshop).
