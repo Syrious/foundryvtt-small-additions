@@ -1,0 +1,59 @@
+
+<!--  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter</title>
+</head>
+<body>
+
+<textarea id="inputTextArea" rows="10" cols="50"></textarea>
+<br>
+<button id="convertCopyButton">Convert and Copy</button>
+<br>
+<div id="outputDiv"></div>
+
+<script>
+    document.getElementById('convertCopyButton').addEventListener('click', function() {
+        const input = document.getElementById('inputTextArea').value;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(input, 'text/html');
+
+        const titles = Array.from(doc.querySelectorAll('.flexbox .abiltitle')).map(el => el.textContent.trim());
+        const nums = Array.from(doc.querySelectorAll('.flexbox .abilnum')).map(el => el.textContent.trim());
+        const mods = Array.from(doc.querySelectorAll('.flexbox .abilmod')).map(el => el.textContent.trim());
+
+        const outputTable = `
+                <table>
+                    <thead>
+                        <tr>
+                            ${titles.map(title => `<th style="text-align: center;">${title}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            ${nums.map(num => `<td style="text-align: center;">${num}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            ${mods.map(mod => `<td style="text-align: center;">${mod}</td>`).join('')}
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+        document.getElementById('outputDiv').innerHTML = outputTable;
+
+        // Copying the converted table HTML to the clipboard
+        const outputHTML = document.getElementById('outputDiv').innerHTML;
+        navigator.clipboard.writeText(outputHTML).then(() => {
+            alert('HTML code copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    });
+</script>
+
+</body>
+</html>
