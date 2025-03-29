@@ -16,5 +16,9 @@ This addition adds a scrolling functionality (without a scrollbar). The sidebar 
 <img alt="sidebar-scroll.gif" height="400" src="assets/sidebar-scroll.gif"/>
 </p>
 
+## Change opacity of hidden drawings
+I sometimes can't find some GM notes on the scene because the alpha is too low.
+With sit setting you can adjust it to your liking (libWrapper required)
+
 ### Support
 If you like to support my work find me on [Patreon](https://www.patreon.com/SyriousWorkshop).
