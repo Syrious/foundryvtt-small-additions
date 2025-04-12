@@ -88,6 +88,7 @@ export function registerSettings(_drawFullRingFunction, _drawSecondRingFunction,
     // Register the individual settings
     game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED, {
         scope: "client",
+        hint: "adfihj",
         config: false,
         type: Boolean,
         default: settings.enabled

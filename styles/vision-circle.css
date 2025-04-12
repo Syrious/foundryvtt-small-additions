@@ -1,5 +1,5 @@
 /* Apply a two-column grid layout to the form */
-.settings-grid {
+.vision-settings {
     display: flex;
     flex-direction: column;
     /*gap: 10px 15px; !* Vertical and horizontal spacing *!*/
@@ -7,14 +7,20 @@
 }
 
 /* Input group for complex inputs like sliders with live updates */
-.input-group {
+.vision-settings .input-group {
     display: flex;
     align-items: center;
     gap: 10px; /* Add spacing between the slider and its value */
 }
 
 /* Button full width */
-button.dialog-button {
+.vision-settings button.dialog-button {
     grid-column: span 2; /* Make the button span across both columns */
     justify-self: center; /* Center the button horizontally */
+}
+
+.vision-settings .enable-hint{
+    font-size: var(--font-size-12);
+    line-height: var(--line-height-16);
+    color: var(--color-text-dark-secondary);
 }
