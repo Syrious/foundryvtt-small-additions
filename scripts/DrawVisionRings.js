@@ -11,93 +11,93 @@ let settings = {
     color2: "#FFA500"
 };
 
-Hooks.once("init", async () => {
-    game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED, {
-        name: "Enables ring",
-        description: "Enables ring at the edge of an actors vision range",
-        scope: "client",
-        config: true,
-        default: false,
-        type: Boolean,
-        requiresReload: false,
-        onChange: value => {
-            settings.enabled = value;
-            canvas.tokens.placeables.forEach(token => drawFullRing(token));
-        }
-    });
+class VisionCircleSettingsForm extends FormApplication {
+    constructor() {
+        super();
+    }
 
-    game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_SECOND_VISION_RING_MULTIPLIER, {
-        name: "Inner second",
-        description: "Enables a second (smaller) ring with a radius of the given fraction of the outer ring. " +
-            "For example, 0.5 means the inner ring has half the radius of the outer ring. Set to 0 to disable the second ring",
-        scope: "client",
-        config: true,
-        default: 0,
-        type: Number,
-        range: {
-            min: 0,
-            step: 0.1,
-            max: 1
-        },
-        requiresReload: false,
-        onChange: value => {
-            settings.secondRing = value;
-            canvas.tokens.placeables.forEach(token => drawSecondRing(token));
-        }
-    });
-
-    try {
-        window.Ardittristan.ColorSetting.tester
-
-        new window.Ardittristan.ColorSetting(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR1, {
-            name: "Outer ring color",      // The name of the setting in the settings menu
-            restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: settings.color1,     // The default color of the setting
-            scope: "client",               // The scope of the setting
-            onChange: (value) => {
-                settings.color1 = value;
-                canvas.tokens.placeables.forEach(token => drawFullRing(token, true));
-            }
-        });
-
-        new window.Ardittristan.ColorSetting(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR2, {
-            name: "Inner ring color",      // The name of the setting in the settings menu
-            restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: settings.color2,     // The default color of the setting
-            scope: "client",               // The scope of the setting
-            onChange: (value) => {
-                settings.color2 = value;
-                canvas.tokens.placeables.forEach(token => drawSecondRing(token, true));
-            }
-        })
-    } catch {
-        game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR1, {
-            name: "Outer ring color",
-            scope: "client",
-            config: true,
-            default: settings.color1,
-            type: String,
-            requiresReload: false,
-            onChange: value => {
-                settings.color1 = value;
-                canvas.tokens.placeables.forEach(token => drawFullRing(token, true));
-            }
-        });
-
-        game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR2, {
-            name: "Inner ring color",
-            scope: "client",
-            config: true,
-            default: settings.color2,
-            type: String,
-            requiresReload: false,
-            onChange: value => {
-                settings.color2 = value;
-                canvas.tokens.placeables.forEach(token => drawSecondRing(token, true));
-            }
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            title: "Vision Circle Settings",
+            id: "vision-circle-settings-form",
+            template: `modules/${MODULE_ID}/templates/vision-circle-settings.html`, // Path to the HTML template for your settings form
+            width: 400,
+            closeOnSubmit: true,
+            resizable: false
         });
     }
 
+    // Load current settings and pass the data to the form
+    getData() {
+        return {
+            enabled: game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED),
+            secondRingMultiplier: game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_SECOND_VISION_RING_MULTIPLIER),
+            color1: game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR1),
+            color2: game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR2)
+        };
+    }
+
+    // Handle form submission and update game settings
+    async _updateObject(event, formData) {
+        // Save settings to Foundry
+        await game.settings.set(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED, formData.enabled);
+        await game.settings.set(MODULE_ID, SETTING_DRAW_VISION_RINGS_SECOND_VISION_RING_MULTIPLIER, parseFloat(formData.secondRingMultiplier));
+        await game.settings.set(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR1, formData.color1);
+        await game.settings.set(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR2, formData.color2);
+
+        // Sync the `settings` object with the updated game settings
+        settings.enabled = formData.enabled;
+        settings.secondRing = parseFloat(formData.secondRingMultiplier);
+        settings.color1 = formData.color1;
+        settings.color2 = formData.color2;
+
+        // Redraw rings after updating settings
+        canvas.tokens.placeables.forEach(token => {
+            drawFullRing(token, true);
+            drawSecondRing(token, true);
+        });
+    }
+}
+
+// Register the settings menu and settings in Foundry
+Hooks.once("init", async () => {
+    game.settings.registerMenu(MODULE_ID, "visionCircleSettingsMenu", {
+        name: "Vision Circle Settings",
+        label: "Open Settings",
+        hint: "Configure all settings for vision circles here.",
+        icon: "fas fa-eye", // Use a Font Awesome icon
+        type: VisionCircleSettingsForm, // Link to the custom form class
+        restricted: false // Allow all users to configure settings; adjust as needed
+    });
+
+    // Register the individual settings
+    game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED, {
+        scope: "client",
+        config: false,
+        type: Boolean,
+        default: false
+    });
+
+    game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_SECOND_VISION_RING_MULTIPLIER, {
+        scope: "client",
+        config: false,
+        type: Number,
+        default: 0.5
+    });
+
+    game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR1, {
+        scope: "client",
+        config: false,
+        type: String,
+        default: "#ff0000" // Default red color
+    });
+
+    game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR2, {
+        scope: "client",
+        config: false,
+        type: String,
+        default: "#00ff00" // Default green color
+    });
 });
 
 Hooks.once("setup", async () => {
@@ -186,3 +186,4 @@ function parseColor(colorString) {
         throw new Error("Invalid color format, must be in #RRGGBB or #RRGGBBAA format");
     }
 }
+

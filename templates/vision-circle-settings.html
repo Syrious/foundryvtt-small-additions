@@ -1,0 +1,26 @@
+<form class="settings-grid">
+  <div class="form-group">
+    <label for="enabled">Enable Vision Rings</label>
+    <input type="checkbox" name="enabled" data-dtype="Boolean" {{#if enabled}}checked{{/if}} />
+  </div>
+
+  <div class="form-group">
+    <label for="secondRingMultiplier">Second Ring Multiplier</label>
+    <div class="input-group">
+      <input type="range" name="secondRingMultiplier" data-dtype="Number" value="{{secondRingMultiplier}}" step="0.1" min="0" max="1" onchange="this.nextElementSibling.textContent = this.value;" />
+      <span>{{secondRingMultiplier}}</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="color1">Outer Ring Color</label>
+    <input type="color" name="color1" data-dtype="String" value="{{color1}}" />
+  </div>
+
+  <div class="form-group">
+    <label for="color2">Inner Ring Color</label>
+    <input type="color" name="color2" data-dtype="String" value="{{color2}}" />
+  </div>
+
+  <button type="submit" class="dialog-button">Save Settings</button>
+</form>

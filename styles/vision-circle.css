@@ -1,0 +1,20 @@
+/* Apply a two-column grid layout to the form */
+.settings-grid {
+    display: flex;
+    flex-direction: column;
+    /*gap: 10px 15px; !* Vertical and horizontal spacing *!*/
+    /*align-items: center; !* Align all labels and inputs on the same row *!*/
+}
+
+/* Input group for complex inputs like sliders with live updates */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add spacing between the slider and its value */
+}
+
+/* Button full width */
+button.dialog-button {
+    grid-column: span 2; /* Make the button span across both columns */
+    justify-self: center; /* Center the button horizontally */
+}

@@ -23,7 +23,8 @@
     "scripts/DrawVisionRings.js"
   ],
   "styles": [
-    "styles/sidebar.css"
+    "styles/sidebar.css",
+    "styles/vision-circle.css"
   ],
   "relationships": {
     "recommends": [
