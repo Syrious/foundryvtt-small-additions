@@ -15,6 +15,17 @@ let drawFullRingFunction;
 let drawSecondRingFunction;
 let removeRingFunction;
 
+function fullRefresh() {
+    canvas.tokens.placeables.forEach(token => {
+        if (!settings.enabled) {
+            removeRingFunction(token);
+        } else {
+            drawFullRingFunction(token, true);
+            drawSecondRingFunction(token, true);
+        }
+    });
+}
+
 class VisionCircleSettingsForm extends FormApplication {
     constructor() {
         super();
@@ -56,14 +67,7 @@ class VisionCircleSettingsForm extends FormApplication {
         settings.color2 = formData.color2;
 
         // Redraw rings after updating settings
-        canvas.tokens.placeables.forEach(token => {
-            if(!settings.enabled){
-                removeRingFunction(token);
-            }else {
-                drawFullRingFunction(token, true);
-                drawSecondRingFunction(token, true);
-            }
-        });
+        fullRefresh();
     }
 }
 
@@ -116,4 +120,23 @@ export function loadSettings() {
     settings.secondRing = game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_SECOND_VISION_RING_MULTIPLIER);
     settings.color1 = game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR1);
     settings.color2 = game.settings.get(MODULE_ID, SETTING_DRAW_VISION_RINGS_COLOR2);
+}
+
+export function registerKeyBinds(){
+    game.keybindings.register(MODULE_ID, "ToggleVisionRings", {
+        name: "Toggle Vision Rings",
+        editable: [
+            {
+                key: "KeyR"
+            }
+        ],
+
+        onDown: () => {
+            settings.enabled = !settings.enabled
+            game.settings.set(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED, settings.enabled)
+            fullRefresh();
+        },
+
+        precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
+    });
 }

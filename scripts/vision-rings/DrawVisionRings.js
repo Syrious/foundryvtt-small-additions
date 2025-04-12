@@ -1,7 +1,8 @@
-import {loadSettings, registerSettings, settings} from "./settings.js";
+import {loadSettings, registerKeyBinds, registerSettings, settings} from "./settings.js";
 
 Hooks.once("init", async () => {
     registerSettings(drawFullRing, drawSecondRing, removeRing);
+    registerKeyBinds();
 });
 
 Hooks.once("setup", async () => {
