@@ -22,7 +22,8 @@ With sit setting you can adjust it to your liking (libWrapper required)
 
 ## Vision Rings
 Enable a ring to better see what each token's visual range is.
-Useful when you use a common display where it is not obvious what each character can see.
+Useful when you use a common display where you don't click on specific,
+and therefore it is not obvious what each character can see.
 
 - You can use the 'R' key (this can be changed in foundry's 'Configure Control') to toggle the rings
 - In the settings, you can also activate a second ring and change the colors
