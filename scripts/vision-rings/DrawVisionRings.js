@@ -43,6 +43,11 @@ function removeRing(token){
 
 function drawRing(token, name, radiusMultiplier, color, force = false) {
     if (token) {
+        if(!game.user.isGM && !token.isOwner){
+            // The user has no right to see the rings of this token
+            return;
+        }
+
         // Check if an existing ring already exists
         let ring = token.children.find((child) => child.name === name);
         const tokenRadius = token.w / 2;

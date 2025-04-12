@@ -64,8 +64,6 @@ class VisionCircleSettingsForm extends FormApplication {
                 drawSecondRingFunction(token, true);
             }
         });
-
-
     }
 }
 
