@@ -20,7 +20,7 @@
   ],
   "esmodules": [
     "scripts/main.js",
-    "scripts/DrawVisionRings.js"
+    "scripts/vision-rings/DrawVisionRings.js"
   ],
   "styles": [
     "styles/sidebar.css",
