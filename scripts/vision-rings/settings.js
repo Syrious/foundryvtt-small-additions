@@ -13,6 +13,7 @@ export let settings = {
 
 let drawFullRingFunction;
 let drawSecondRingFunction;
+let removeRingFunction;
 
 class VisionCircleSettingsForm extends FormApplication {
     constructor() {
@@ -56,15 +57,22 @@ class VisionCircleSettingsForm extends FormApplication {
 
         // Redraw rings after updating settings
         canvas.tokens.placeables.forEach(token => {
-            drawFullRingFunction(token, true);
-            drawSecondRingFunction(token, true);
+            if(!settings.enabled){
+                removeRingFunction(token);
+            }else {
+                drawFullRingFunction(token, true);
+                drawSecondRingFunction(token, true);
+            }
         });
+
+
     }
 }
 
-export function registerSettings(_drawFullRingFunction, _drawSecondRingFunction) {
+export function registerSettings(_drawFullRingFunction, _drawSecondRingFunction, _removeRingFunction) {
     drawFullRingFunction = _drawFullRingFunction;
     drawSecondRingFunction = _drawSecondRingFunction;
+    removeRingFunction = _removeRingFunction;
 
     game.settings.registerMenu(MODULE_ID, "visionCircleSettingsMenu", {
         name: "Vision Circle Settings",

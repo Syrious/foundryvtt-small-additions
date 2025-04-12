@@ -1,7 +1,7 @@
 import {loadSettings, registerSettings, settings} from "./settings.js";
 
 Hooks.once("init", async () => {
-    registerSettings(drawFullRing, drawSecondRing);
+    registerSettings(drawFullRing, drawSecondRing, removeRing);
 });
 
 Hooks.once("setup", async () => {
@@ -18,12 +18,27 @@ Hooks.on('refreshToken', async (token, b, c) => {
     }
 })
 
+const VISION_RING_FULL = "vision-ring-full";
+
 function drawFullRing(token, force = false) {
-    drawRing(token, "vision-ring-full", 1, settings.color1, force)
+    drawRing(token, VISION_RING_FULL, 1, settings.color1, force)
 }
 
+const VISION_RING_HALF = "vision-ring-half";
 function drawSecondRing(token, force = false) {
-    drawRing(token, "vision-ring-half", settings.secondRing, settings.color2, force)
+    drawRing(token, VISION_RING_HALF, settings.secondRing, settings.color2, force)
+}
+
+function removeRing(token){
+    let ring = token.children.find((child) => child.name === VISION_RING_FULL);
+    if (ring) {
+        token.removeChild(ring);
+    }
+
+    ring = token.children.find((child) => child.name === VISION_RING_HALF);
+    if (ring) {
+        token.removeChild(ring);
+    }
 }
 
 function drawRing(token, name, radiusMultiplier, color, force = false) {
