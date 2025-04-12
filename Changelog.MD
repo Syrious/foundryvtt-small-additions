@@ -1,3 +1,6 @@
+# 0.2.0
+- Adds vision rings
+
 # 0.1.0
 - Adds an option to set the opacity of hidden drawings (requires libWrapper)
 
