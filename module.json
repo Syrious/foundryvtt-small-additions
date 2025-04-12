@@ -19,7 +19,8 @@
     }
   ],
   "esmodules": [
-    "scripts/main.js"
+    "scripts/main.js",
+    "scripts/DrawVisionRings.js"
   ],
   "styles": [
     "styles/sidebar.css"
