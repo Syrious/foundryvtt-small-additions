@@ -20,5 +20,28 @@ This addition adds a scrolling functionality (without a scrollbar). The sidebar 
 I sometimes can't find some GM notes on the scene because the alpha is too low.
 With sit setting you can adjust it to your liking (libWrapper required)
 
+## Vision Rings
+Enable a ring to better see what each token's visual range is.
+Useful when you use a common display where it is not obvious what each character can see.
+
+- You can use the 'R' key (this can be changed in foundry's 'Configure Control') to toggle the rings
+- In the settings, you can also activate a second ring and change the colors
+
+### Example
+On this common screen, both players have darkvision.
+B can see C, but it is not obvious that A is actually too far away to see C.
+
+<p style="text-align: center">
+<img alt="vision-ring1.jpg" height="600" src="assets/vision-ring1.jpg"/>
+</p>
+
+This gets more obvious with vision rings
+
+<p style="text-align: center">
+<img alt="vision-ring2.jpg" height="600" src="assets/vision-ring2.jpg"/>
+</p>
+
+
+
 ### Support
 If you like to support my work find me on [Patreon](https://www.patreon.com/SyriousWorkshop).
