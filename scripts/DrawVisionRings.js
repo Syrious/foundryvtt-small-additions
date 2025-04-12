@@ -11,7 +11,6 @@ let settings = {
     color2: "#FFA500"
 };
 
-
 Hooks.once("init", async () => {
     game.settings.register(MODULE_ID, SETTING_DRAW_VISION_RINGS_ENABLED, {
         name: "Enables ring",
@@ -152,12 +151,38 @@ function drawRing(token, name, radiusMultiplier, color, force = false) {
         }
 
         // Set the line style (5px, orange, fully opaque)
-        ring.lineStyle(5, color, 1);
+        const parsedColor = parseColor(color);
+        ring.lineStyle(5, parsedColor.color, parsedColor.alpha);
 
         // Draw the circle using the calculated radius
         ring.drawCircle(tokenRadius, tokenRadius, radius);
 
         // Store the radius for future comparisons
         ring._lastRadius = radius; // Custom property to track the radius
+    }
+}
+
+function parseColor(colorString) {
+    // Ensure the color string is valid and starts with '#'
+    if (!colorString || !colorString.startsWith('#')) {
+        throw new Error("Invalid color format, must start with '#'");
+    }
+
+    // Check the length of the color string
+    if (colorString.length === 7) { // Format: #RRGGBB
+        return {
+            color: colorString,
+            alpha: 1 // Default alpha
+        };
+    } else if (colorString.length === 9) { // Format: #RRGGBBAA
+        const rgb = colorString.slice(0, 7); // #RRGGBB
+        const alphaHex = colorString.slice(7, 9); // AA
+        const alphaDecimal = parseInt(alphaHex, 16) / 255; // Convert hex AA to decimal (0 to 1)
+        return {
+            color: rgb,
+            alpha: alphaDecimal
+        };
+    } else {
+        throw new Error("Invalid color format, must be in #RRGGBB or #RRGGBBAA format");
     }
 }
