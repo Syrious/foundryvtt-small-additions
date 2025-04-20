@@ -1,3 +1,6 @@
+# 0.2.1
+- Fixes issue where the alpha meant for hidden drawings is also applied to non-hidden drawings
+
 # 0.2.0
 - Adds vision rings
 
