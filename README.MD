@@ -18,7 +18,7 @@ This addition adds a scrolling functionality (without a scrollbar). The sidebar 
 
 ## Change opacity of hidden drawings
 I sometimes can't find some GM notes on the scene because the alpha is too low.
-With sit setting you can adjust it to your liking (libWrapper required)
+With this setting you can adjust to any value you like (libWrapper required)
 
 ## Vision Rings
 Enable a ring to better see what each token's visual range is.
