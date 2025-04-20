@@ -37,7 +37,9 @@ function libWrapperSetup() {
             wrapped.apply(this, args);
 
             // Now, override the alpha logic for the drawing
-            this.shape.alpha = alpha; // Your custom logic here
+            if(this.shape.hidden) {
+                this.shape.alpha = alpha; // Your custom logic here
+            }
 
         }, "WRAPPER"); // Wrapper allows you to wrap the original implementation
     }
